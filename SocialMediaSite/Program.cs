@@ -22,9 +22,8 @@ namespace SocialMediaSite
 			builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 			builder.Services.AddTransient<IDataAccessLayer, SocialMediaDAL>();
 
-			builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
-
+			builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+options.SignIn.RequireConfirmedAccount =false).AddDefaultUI().AddDefaultTokenProviders().AddEntityFrameworkStores<ApplicationDbContext>();
 			builder.Services.AddRazorPages();
 
 			builder.Services.Configure<IdentityOptions>(options =>

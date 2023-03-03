@@ -42,6 +42,7 @@ namespace SocialMediaSite.Data
 
         public Profile GetProfile(string UserName)
         {
+
             return db.Profiles.Where(p => p.Username == UserName).FirstOrDefault();
         }
 

@@ -1,5 +1,17 @@
 ﻿@model Post
 
-<h2>@Model.Poster</h2>
+@*<h2>@Model.Poster</h2>
 <h2>@Model.Text</h2>
-<img src="@Model.Image" width="600" height="400" />
+<img src="@Model.Image" width="600" height="400" />*@
+
+<div class="card text-white bg-dark mb-3" style="max-width: 60rem;">
+	<div class="card-header">
+		<a asp-controller="Home" asp-action="OtherPage" asp-route-poster="@Model.Poster" class="nav-link text-dark">@Model.Poster</a>
+		</div>
+	<div class="card-body">
+		<h4 class="card-title">@Model.Text</h4>
+		@*<p class="card-text">@Model.Text</p>*@
+		<img src="@Model.Image" width="100%" height="100%" />
+
+	</div>
+</div>

@@ -1,0 +1,35 @@
+﻿@page
+@model ID6NP.Areas.Admin.Pages.Roles.AddUseRoleModel
+@{
+}
+
+
+@if (Model.AllUsers != null && Model.AllRoles != null)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="SelectedUserId">Select a User:</label>
+                    <select asp-for="SelectedUserId" asp-items="Model.AllUsers">
+                        <option>Select a User</option>
+                    </select>
+                    <span asp-validation-for="SelectedUserId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SelectedRole">Select a Role:</label>
+                    <select asp-for="SelectedRole" asp-items="Model.AllRoles">
+                        <option>Select a Role</option>
+                    </select>
+                    <span asp-validation-for="SelectedRole" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Role</button>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <h3>Somethings wrong!</h3>
+}

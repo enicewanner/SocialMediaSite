@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace SocialMediaSite.Controllers
 {
-	
+
 
 	[Authorize]
 	public class HomeController : Controller
@@ -26,6 +26,7 @@ namespace SocialMediaSite.Controllers
 			return View();
 		}
 
+		[Authorize(Roles = "Admin")]
 		public IActionResult Privacy()
 		{
 			return View();
@@ -59,11 +60,11 @@ namespace SocialMediaSite.Controllers
 			return View();
 		}
 
-        public IActionResult MyPage()
-        {
+		public IActionResult MyPage()
+		{
 			string user = User.FindFirstValue(ClaimTypes.Name);
 			//int currentUser = User.Identities.
-			Profile profile;
+			Profile profile = null;
 
 			//foreach(Profile prof in dal.GetProfiles())
 			//{
@@ -76,30 +77,52 @@ namespace SocialMediaSite.Controllers
 
 			//}
 
-			profile = dal.GetProfile(user);
+			if (dal.GetProfile(user) == null)
+			{
+				CreateProfile();
+			}
+			else
+			{
+				profile = dal.GetProfile(user);
+
+			}
+
 
 			//CreateProfile(profile);
 			return View(profile);
-			
 
 
-        }
-        public IActionResult OtherPage()
-        {
-			//Profile profile = dal.GetProfile();
 
-            return View();
-        }
+		}
 
-		public void CreateProfile(Profile profile)
+		[HttpGet]
+		public IActionResult OtherPage(string poster)
 		{
-			if (ModelState.IsValid)
-			{
-				profile.Username = User.FindFirstValue(ClaimTypes.Name);
-				profile.Description = "Edit in Edit Profile Page";
-				profile.ProfileImage = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
-				dal.AddProfile(profile);
-			}
+			//IEnumerable<Profile> profiles = dal.GetProfiles();
+			//foreach (Profile profile in profiles)
+			//{
+			//	if (profile.Username.ToString() == poster)
+			//	{
+			//		return View(profile.Id);
+			//	}
+			//}
+
+			Profile profile = dal.GetProfile(poster);
+
+
+
+			return View(profile);
+		}
+
+		public void CreateProfile()
+		{
+			Profile profile = new Profile();
+			string user = User.FindFirstValue(ClaimTypes.Name);
+			profile.Username = user;
+			profile.Description = "Edit in Edit Profile Page";
+			profile.ProfileImage = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
+			dal.AddProfile(profile);
+
 		}
 
 		public IActionResult Feed()
@@ -126,14 +149,14 @@ namespace SocialMediaSite.Controllers
 			return View();
 		}
 
-		public IActionResult UserPosts(int id) 
+		public IActionResult UserPosts(int id)
 		{
 			return View(dal.GetPosts().Where(n => n.Poster == (dal.GetProfile(id)).Username));
 		}
 
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
