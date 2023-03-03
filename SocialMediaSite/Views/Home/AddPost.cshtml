@@ -1,0 +1,29 @@
+﻿@model Post
+<form asp-controller="Home" asp-action="AddPost" method="post">
+
+<div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create Post</h2>
+            <input type="hidden" name="Poster" value="Yes" asp-for="Poster" />
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Text"></label>
+            <input asp-for="Text" class="form-cotrol" />
+            <span asp-validation-for="Text" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Image"></label>
+            <input asp-for="Image" class="form-cotrol" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            Post
+        </button>
+        <a asp-controller="Home" asp-action="Feed"
+           class="btn btn-secondary">Return To Feed Page</a>
+
+    </div>
+
+    </form>

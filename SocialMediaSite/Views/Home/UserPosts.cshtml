@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Post>
+
+@foreach (Post post in Model)
+{
+	<h2>
+		<partial name="_PostPartialView.cshtml" for="@post" />
+	</h2>
+}

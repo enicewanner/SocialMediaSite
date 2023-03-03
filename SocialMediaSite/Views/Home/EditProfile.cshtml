@@ -1,0 +1,27 @@
+﻿@model Profile
+
+<form method="post" asp-controller="Home" asp-action="EditProfile" >
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Edit Profile</h2>
+            <input type="hidden" name="Username" value="Yes" asp-for="Username" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProfileImage"></label>
+            <input asp-for="ProfileImage" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-arrow-clockwise"></i>  Update
+        </button>
+
+        <a asp-controller="Home" asp-action="MyPage" class="btn btn-secondary">
+            Back to Your Page
+        </a>
+
+    </div>
+
+</form>

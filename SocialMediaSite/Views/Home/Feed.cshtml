@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Post>
+
+@if (Model == null)
+{
+	<h2>Fuck</h2>
+}
+else
+{
+	@foreach (Post post in Model)
+	{
+			<partial name="_PostPartialView.cshtml" for="@post" />
+	}
+
+}
+
+<a asp-controller="Home" asp-action="AddPost" class="btn btn-primary mx-2">
+	Create Post
+</a>
